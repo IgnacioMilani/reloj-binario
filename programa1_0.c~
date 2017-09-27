@@ -26,13 +26,14 @@ int main(int argc,char *argv[]){
 		time_t tiempo = time(0);
 		struct tm *tlocal = localtime(&tiempo);
 
-		int sec=tlocal->tm_sec;
-		for(i=0;i<=15;i++){				//Prueba de 15 segundos
-			rc= serialport_writebyte(fd, (uint8_t)sec);		//Envia el numero
-			if(rc==-1) perror("Error de escritura");		//Variable de chequeo
-			sleep(1);
-			if (sec<59)	sec++;			//Si sec=58 pasa a sec=59
-			else sec=0;					//Si sec=59 pasa a sec=0
+		int min=tlocal->tm_min;
+		for(i=0;i<=15;i++){
+			if(min==60) min=0;
+			rc= serialport_writebyte(fd, (uint8_t)min);		//Variable de chequeo
+			if(rc==-1) perror("Error de escritura");
+			sleep(60);
+			if (min<60)	min++;
+			
 		}
 		
         close(fd);
