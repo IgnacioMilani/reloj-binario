@@ -25,25 +25,16 @@ void loop() {
   minuto=20;
   segundo=37;
 
-  
-
   intAbyte(hora, 0);
   intAbyte(minuto, 1);
   //intAbyte(segundo, 2);
-  
-  int val=Serial.read();
-  //intAbyte(val,2);
-  s2=byte(val);
-  s2 = s2 << 1;    //Shift de un bit por error de integrado
-  registerWrite(s2, HIGH);
-  delay(60000);
-  /*
-  for(int i=0; i<=9; i++){
-    intAbyte(i, 2);
+  if (Serial.available() > 0) {
+    int val=Serial.read();
+    //intAbyte(val,2);
+    s2=byte(val);
     s2 = s2 << 1;    //Shift de un bit por error de integrado
     registerWrite(s2, HIGH);
-    delay(1000);
-  }*/
+  }
   
 }
 //ESTA FUNCION QUIZAS NO HAGA FALTA CUANDO PASEMOS EL BYTE DESDE LINUX
